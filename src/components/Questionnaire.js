@@ -18,8 +18,9 @@ const options = [
 ];
 
 const Questionnaire = (props) => {
-    // Default value is 1
-    const [answers, setAnswers] = useState(questionList.map(() => 1));
+    // Using 0 as non-selected
+    const [answers, setAnswers] = useState(questionList.map(() => 0));
+    const [submittable, setSubmittable] = useState(false);
 
     const handleAnswerChange = (questionIdx, answerValue) => {
         // Only update when necessary
@@ -27,13 +28,17 @@ const Questionnaire = (props) => {
             const tempAnswers = [...answers];
             tempAnswers[questionIdx] = answerValue;
             setAnswers(tempAnswers);
+            setSubmittable(checkIfSubmittable(tempAnswers));
         }
     };
+
+    // Submittable only when the user selected answers for all the questions
+    const checkIfSubmittable = (newAnswers) => newAnswers.filter(val => (val === 0)).length === 0;
 
     return (
         <>
             {questionList.map((question, idx) => <Question question={question} options={options} handleAnswerChange={(value) => handleAnswerChange(idx, value)}/>)}
-            <Button variant="primary">Submit</Button>
+            <Button variant="primary" disabled={!submittable}>Submit</Button>
         </>
     );
 }
