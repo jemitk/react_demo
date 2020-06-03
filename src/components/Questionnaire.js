@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Button } from 'react-bootstrap';
 import Question from './Question';
 
 const questionList = [
@@ -17,9 +18,22 @@ const options = [
 ];
 
 const Questionnaire = (props) => {
+    // Default value is 1
+    const [answers, setAnswers] = useState(questionList.map(() => 1));
+
+    const handleAnswerChange = (questionIdx, answerValue) => {
+        // Only update when necessary
+        if (answers[questionIdx] !== answerValue) {
+            const tempAnswers = [...answers];
+            tempAnswers[questionIdx] = answerValue;
+            setAnswers(tempAnswers);
+        }
+    };
+
     return (
         <>
-            {questionList.map(question => <Question question={question} options={options} />)}
+            {questionList.map((question) => <Question question={question} options={options} />)}
+            <Button variant="primary">Submit</Button>
         </>
     );
 }
