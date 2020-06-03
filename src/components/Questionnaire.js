@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Button } from 'react-bootstrap';
-import Modal from 'react-modal';
+import { Alert, Button } from 'react-bootstrap';
 import Question from './Question';
 
 const questionList = [
@@ -22,6 +21,7 @@ const Questionnaire = (props) => {
     // Using 0 as non-selected
     const [answers, setAnswers] = useState(questionList.map(() => 0));
     const [submittable, setSubmittable] = useState(false);
+    const [isMessageShown, setIsMessageShown] = useState(false);
 
     const handleAnswerChange = (questionIdx, answerValue) => {
         // Only update when necessary
@@ -37,15 +37,16 @@ const Questionnaire = (props) => {
     const checkIfSubmittable = (newAnswers) => newAnswers.filter(val => (val === 0)).length === 0;
 
     const handleSubmit = () => {
-        if (submittable) {
-
-        }
+        setIsMessageShown(true);
     }
 
     return (
         <>
+            <Alert show={isMessageShown} variant={submittable ? "success" : "danger"} onClose={() => setIsMessageShown(false)} dismissible>
+                <Alert.Heading>{submittable ? "Thank you for your response!" : "Oops, please answer to all the questions!"}</Alert.Heading>
+            </Alert>
             {questionList.map((question, idx) => <Question question={question} options={options} handleAnswerChange={(value) => handleAnswerChange(idx, value)}/>)}
-            <Button variant="primary" disabled={!submittable} onClick={handleSubmit}>Submit</Button>
+            <Button variant="primary" onClick={handleSubmit}>Submit</Button>
         </>
     );
 }
