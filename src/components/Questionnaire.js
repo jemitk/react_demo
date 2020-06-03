@@ -32,7 +32,7 @@ const Questionnaire = (props) => {
 
     return (
         <>
-            {questionList.map((question) => <Question question={question} options={options} />)}
+            {questionList.map((question, idx) => <Question question={question} options={options} handleAnswerChange={(value) => handleAnswerChange(idx, value)}/>)}
             <Button variant="primary">Submit</Button>
         </>
     );
