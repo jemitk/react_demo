@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
+import Modal from 'react-modal';
 import Question from './Question';
 
 const questionList = [
@@ -35,10 +36,16 @@ const Questionnaire = (props) => {
     // Submittable only when the user selected answers for all the questions
     const checkIfSubmittable = (newAnswers) => newAnswers.filter(val => (val === 0)).length === 0;
 
+    const handleSubmit = () => {
+        if (submittable) {
+
+        }
+    }
+
     return (
         <>
             {questionList.map((question, idx) => <Question question={question} options={options} handleAnswerChange={(value) => handleAnswerChange(idx, value)}/>)}
-            <Button variant="primary" disabled={!submittable}>Submit</Button>
+            <Button variant="primary" disabled={!submittable} onClick={handleSubmit}>Submit</Button>
         </>
     );
 }
