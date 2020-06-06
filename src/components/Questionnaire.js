@@ -26,6 +26,9 @@ const Questionnaire = (props) => {
     const [isMessageShown, setIsMessageShown] = useState(false);
 
     const handleAnswerChange = (questionIdx, answerValue) => {
+        // When there is an answer change, close the alert
+        setIsMessageShown(false);
+        
         // Only update when necessary
         if (answers[questionIdx] !== answerValue) {
             const tempAnswers = [...answers];
