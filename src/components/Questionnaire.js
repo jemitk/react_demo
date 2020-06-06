@@ -45,6 +45,7 @@ const Questionnaire = (props) => {
             <Alert show={isMessageShown} variant={submittable ? "success" : "danger"} onClose={() => setIsMessageShown(false)} dismissible>
                 <Alert.Heading>{submittable ? "Thank you for your response!" : "Oops, please answer to all the questions!"}</Alert.Heading>
             </Alert>
+            <h1>Questionnaire</h1>
             {questionList.map((question, idx) => <Question question={question} options={options} handleAnswerChange={(value) => handleAnswerChange(idx, value)}/>)}
             <Button variant="primary" onClick={handleSubmit}>Submit</Button>
         </>
