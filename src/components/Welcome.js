@@ -8,11 +8,13 @@ Hope you have fun, and thank you! \
 Please click the below start button to continue.";
 
 const Welcome = (props) => {
+    const { onClickStart } = props;
+
     return (
         <>
             <h1>Welcome!</h1>
             <p>{message}</p>
-            <Button>Start</Button>
+            <Button onClick={onClickStart}>Start</Button>
         </>
     );
 };
