@@ -18,6 +18,8 @@ const options = [
 ];
 
 const Questionnaire = (props) => {
+    const { onClickSubmit } = props;
+
     // Using 0 as non-selected
     const [answers, setAnswers] = useState(questionList.map(() => 0));
     const [submittable, setSubmittable] = useState(false);
@@ -38,12 +40,14 @@ const Questionnaire = (props) => {
 
     const handleSubmit = () => {
         setIsMessageShown(true);
+        // Setting a 3 second delay; this will be replaced by a server call later.
+        setTimeout(onClickSubmit, 3000);
     }
 
     return (
         <>
             <Alert show={isMessageShown} variant={submittable ? "success" : "danger"} onClose={() => setIsMessageShown(false)} dismissible>
-                <Alert.Heading>{submittable ? "Thank you for your response!" : "Oops, please answer to all the questions!"}</Alert.Heading>
+                <Alert.Heading>{submittable ? "Thank you for your response! Wait a sec until we find the best match..." : "Oops, please answer to all the questions!"}</Alert.Heading>
             </Alert>
             <h1>Questionnaire</h1>
             {questionList.map((question, idx) => <Question question={question} options={options} handleAnswerChange={(value) => handleAnswerChange(idx, value)}/>)}

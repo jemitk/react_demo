@@ -10,4 +10,6 @@ const Complete = (props) => {
             <Button onClick={onClickGoBack}>Go Back</Button>
         </>
     )
-}
+};
+
+export default Complete;
