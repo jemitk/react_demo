@@ -40,8 +40,10 @@ const Questionnaire = (props) => {
 
     const handleSubmit = () => {
         setIsMessageShown(true);
-        // Setting a 3 second delay; this will be replaced by a server call later.
-        setTimeout(onClickSubmit, 3000);
+        if (submittable) {
+            // Setting a 3 second delay; this will be replaced by a server call later.
+            setTimeout(onClickSubmit, 3000);
+        }
     }
 
     return (
