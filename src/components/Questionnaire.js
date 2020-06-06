@@ -24,11 +24,12 @@ const Questionnaire = (props) => {
     const [answers, setAnswers] = useState(questionList.map(() => 0));
     const [submittable, setSubmittable] = useState(false);
     const [isMessageShown, setIsMessageShown] = useState(false);
+    const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
     const handleAnswerChange = (questionIdx, answerValue) => {
         // When there is an answer change, close the alert
         setIsMessageShown(false);
-        
+
         // Only update when necessary
         if (answers[questionIdx] !== answerValue) {
             const tempAnswers = [...answers];
@@ -44,6 +45,7 @@ const Questionnaire = (props) => {
     const handleSubmit = () => {
         setIsMessageShown(true);
         if (submittable) {
+            setIsButtonDisabled(true);
             // Setting a 3 second delay; this will be replaced by a server call later.
             setTimeout(onClickSubmit, 3000);
         }
@@ -56,7 +58,7 @@ const Questionnaire = (props) => {
             </Alert>
             <h1>Questionnaire</h1>
             {questionList.map((question, idx) => <Question question={question} options={options} handleAnswerChange={(value) => handleAnswerChange(idx, value)}/>)}
-            <Button variant="primary" onClick={handleSubmit}>Submit</Button>
+            <Button variant="primary" disabled={isButtonDisabled} onClick={handleSubmit}>Submit</Button>
         </>
     );
 }
